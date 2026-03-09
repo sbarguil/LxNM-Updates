@@ -20,7 +20,7 @@
 #
 ###
 title: "A YANG Network Data Model for Layer 3 VPNs"
-abbrev: "l3nm-bis"
+abbrev: "ietf-l3vpn-ntw-bis"
 category: info
 
 docname: draft-bg-onsen-l3sm-l3nm-bis-latest
