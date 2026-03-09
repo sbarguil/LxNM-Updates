@@ -1,24 +1,4 @@
 ---
-###
-# Internet-Draft Markdown Template
-#
-# Rename this file from draft-todo-yourname-protocol.md to get started.
-# Draft name format is "draft-<yourname>-<workgroup>-<name>.md".
-#
-# For initial setup, you only need to edit the first block of fields.
-# Only "title" needs to be changed; delete "abbrev" if your title is short.
-# Any other content can be edited, but be careful not to introduce errors.
-# Some fields will be set automatically during setup if they are unchanged.
-#
-# Don't include "-00" or "-latest" in the filename.
-# Labels in the form draft-<yourname>-<workgroup>-<name>-latest are used by
-# the tools to refer to the current version; see "docname" for example.
-#
-# This template uses kramdown-rfc: https://github.com/cabo/kramdown-rfc
-# You can replace the entire file if you prefer a different format.
-# Change the file extension to match the format (.xml for XML, etc...)
-#
-###
 title: "A YANG Network Data Model for Layer 3 VPNs"
 abbrev: "ietf-l3vpn-ntw-bis"
 category: info
@@ -29,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Operations and Management"
+workgroup: "Operationalizing Network workgroup: WG Working Groupamp; SErvice abstractioNs"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: ONSEN
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
+  group: "Operationalizing Network   group: ONSENamp; SErvice abstractioNs"
+  type: "Working Group"
+  mail: "onions@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/onions/"
   github: "sbarguil/LxNM-Updates"
-#  latest: "https://oscargdd.github.io/lxnm-bis/draft-bg-onions-update-network-service-models.html"
+  latest: "https://sbarguil.github.io/LxNM-Updates/draft-bg-onsen-l3sm-l3nm-bis.html"
 
 author:
  -
