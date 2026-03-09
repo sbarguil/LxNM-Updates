@@ -3,8 +3,8 @@
     "module-set-id": "",
     "module": [
       {
-        "name": "ietf-test",
-        "namespace": "urn:ietf:params:xml:ns:yang:ietf-test",
+        "name": "ietf-l3vpn-ntw",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-l3vpn-ntw",
         "revision": "",
         "conformance-type": "implement",
         "feature": []		  
