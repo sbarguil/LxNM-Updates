@@ -1,0 +1,82 @@
+{
+  "ietf-yang-library:modules-state": {
+    "module-set-id": "",
+    "module": [
+      {
+        "name": "ietf-inet-types",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-inet-types",
+        "revision": "2013-07-15",
+        "conformance-type": "implement",
+        "feature": []
+      },
+      {
+        "name": "ietf-key-chain",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-key-chain",
+        "revision": "2017-06-15",
+        "conformance-type": "implement",
+        "feature": [
+          "hex-key-string",
+          "accept-tolerance",
+          "independent-send-accept-lifetime",
+          "crypto-hmac-sha-1-12",
+          "cleartext",
+          "aes-cmac-prf-128",
+          "aes-key-wrap",
+          "replay-protection-only"
+        ]
+      },
+      {
+        "name": "ietf-l3vpn-ntw",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-l3vpn-ntw",
+        "revision": "2022-02-14",
+        "conformance-type": "implement",
+        "feature": [
+          "msdp"
+        ]
+      },
+      {
+        "name": "ietf-vpn-common",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-vpn-common",
+        "revision": "2022-02-11",
+        "conformance-type": "implement",
+        "feature": [
+          "dot1q",
+          "qinq",
+          "vxlan",
+          "qinany",
+          "lag-interface",
+          "multicast",
+          "igmp",
+          "mld",
+          "pim",
+          "ipv4",
+          "ipv6",
+          "rtg-ospf",
+          "rtg-ospf-sham-link",
+          "rtg-bgp",
+          "rtg-rip",
+          "rtg-isis",
+          "rtg-vrrp",
+          "bfd",
+          "bearer-reference",
+          "placement-diversity",
+          "qos",
+          "inbound-bw",
+          "outbound-bw",
+          "encryption",
+          "fast-reroute",
+          "external-connectivity",
+          "extranet-vpn",
+          "carriers-carrier"
+        ]
+      },
+      {
+        "name": "ietf-yang-types",
+        "namespace": "urn:ietf:params:xml:ns:yang:ietf-yang-types",
+        "revision": "2013-07-15",
+        "conformance-type": "implement",
+        "feature": []
+      }
+    ]
+  }
+}
