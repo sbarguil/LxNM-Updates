@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Operations and Management"
+workgroup: "Operationalizing Network workgroup: WG Working Groupamp; SErvice abstractioNs"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: ONSEN
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
+  group: "Operationalizing Network   group: ONSENamp; SErvice abstractioNs"
+  type: "Working Group"
+  mail: "onions@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/onions/"
   github: "sbarguil/LxNM-Updates"
-#  latest: "https://oscargdd.github.io/lxnm-bis/draft-bg-onions-update-network-service-models.html"
+  latest: "https://sbarguil.github.io/LxNM-Updates/draft-bg-onsen-l3sm-l3nm-bis.html"
 
 author:
  -
