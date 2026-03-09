@@ -2,14 +2,15 @@
 
 
 
-WG Working Group                                              Y. N. Here
-Internet-Draft                                    Your Organization Here
-Intended status: Informational                              9 March 2026
-Expires: 10 September 2026
+WG Working Group                                           O. G. D. Dios
+Internet-Draft                                                Telefonica
+Intended status: Informational                                S. Barguil
+Expires: 10 September 2026                                         Nokia
+                                                            9 March 2026
 
 
-                           TODO - Your title
-                  draft-todo-yourname-protocol-latest
+               A YANG Network Data Model for Layer 3 VPNs
+                  draft-bg-onsen-l3sm-l3nm-bis-latest
 
 Abstract
 
@@ -19,17 +20,11 @@ About This Document
 
    This note is to be removed before publishing as an RFC.
 
-   The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-bg-onsen-l3sm-l3nm-bis/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/sbarguil/LxNM-Updates.
 
 Status of This Memo
 
@@ -73,7 +68,7 @@ Table of Contents
      6.1.  Normative References
      6.2.  Informative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -126,8 +121,13 @@ Acknowledgments
 
    TODO acknowledge.
 
-Author's Address
+Authors' Addresses
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Oscar Gonzalez de Dios
+   Telefonica
+   Email: oscar.gonzalezdedios@telefonica.com
+
+
+   Samier Barguil
+   Nokia
+   Email: samier.barguil_giraldo@nokia.com
