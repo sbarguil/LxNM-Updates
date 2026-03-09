@@ -19,11 +19,11 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "A YANG Network Data Model for Layer 3 VPNs"
+abbrev: "l3nm-bis"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-bg-onsen-l3sm-l3nm-bis-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -36,18 +36,22 @@ keyword:
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: ONSEN
+#  type: Working Group
+#  mail: WG@example.com
+#  arch: https://example.com/WG
+  github: "sbarguil/LxNM-Updates"
+#  latest: "https://oscargdd.github.io/lxnm-bis/draft-bg-onions-update-network-service-models.html"
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Oscar Gonzalez de Dios
+    organization: Telefonica
+    email: oscar.gonzalezdedios@telefonica.com
+ -
+    fullname: Samier Barguil
+    organization: Nokia
+    email: samier.barguil_giraldo@nokia.com
 
 normative:
 
