@@ -59,6 +59,14 @@ module ietf-vpn-common {
      This version of this YANG module is part of RFC 9181; see the
      RFC itself for full legal notices.";
 
+  revision 2025-03-10 {
+    description
+      "Initial revision for -bis.";
+    reference
+      "RFC XXX: A Common YANG Data Model for Layer 2 and Layer 3
+                VPNs";
+  }
+
   revision 2022-02-11 {
     description
       "Initial revision.";
