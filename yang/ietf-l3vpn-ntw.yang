@@ -547,6 +547,62 @@ module ietf-l3vpn-ntw {
     }
   }
 
+  grouping bfd-static-routes {
+    container bfd {
+      description
+        "Container for Static Routes BFD Configuration.";
+      
+      leaf bfd-session-name {
+        type string;
+        description
+          "Specifies the name of a BFD session to associate and track.";
+      }
+      
+      leaf desired-min-tx-interval {
+        type uint32;
+        units "miliseconds";
+        default "1000";
+        description
+          "The minimum interval between
+          transmissions of BFD Control packets, as
+          desired by the operator.";
+        reference
+          "RFC 5880: Bidirectional Forwarding
+          Detection (BFD), Section 6.8.7";
+      }
+
+     leaf required-min-rx-interval {
+       type uint32;
+         units "miliseconds";
+         default "1000";
+         description
+           "The minimum interval between received BFD 
+            Control packets that the PE should support.";
+         reference
+           "RFC 5880: Bidirectional Forwarding
+            Detection (BFD), Section 6.8.7";
+        }
+
+     leaf local-multiplier {
+       type uint8 {
+         range "1..255";
+       }
+       default "3";
+       description
+         "Specifies the detection multiplier that
+         is transmitted to a BFD peer.
+         The detection interval for the receiving
+         BFD peer is calculated by multiplying the
+         value of the negotiated transmission
+         interval by the received detection
+         multiplier value.";
+      reference
+        "RFC 5880: Bidirectional Forwarding
+         Detection (BFD), Section 6.8.7";
+      }
+    }
+  }
+
   /* Main Blocks */
   /* Main l3vpn-ntw */
 
@@ -1551,6 +1607,7 @@ module ietf-l3vpn-ntw {
                                with the static route.";
                           }
                           uses vpn-common:service-status;
+                          uses bfd-static-route;
                         }
                         list ipv6-lan-prefixes {
                           if-feature "vpn-common:ipv6";
@@ -1599,6 +1656,7 @@ module ietf-l3vpn-ntw {
                                with the static route.";
                           }
                           uses vpn-common:service-status;
+                          uses bfd-static-route;
                         }
                       }
                     }
