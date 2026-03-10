@@ -1936,12 +1936,12 @@ module ietf-vpn-common {
         "VPN service policies.  'vpn-policies' contains references
          to the import and export policies to be associated with
          the VPN service.";
-      leaf import-policy {
+      leaf-list import-policy {
         type string;
         description
           "Identifies the import policy.";
       }
-      leaf export-policy {
+      leaf-list export-policy {
         type string;
         description
           "Identifies the export policy.";
