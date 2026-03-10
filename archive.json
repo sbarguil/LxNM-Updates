@@ -1,0 +1,81 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2026-03-10T00:55:38.340539+00:00",
+  "repo": "sbarguil/LxNM-Updates",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDORh8jGc7JAvwE",
+      "title": "Routing Policies as a List",
+      "url": "https://github.com/sbarguil/LxNM-Updates/pull/1",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.com/oscargdd/lxnm-bis/issues/31",
+      "createdAt": "2026-03-09T09:22:19Z",
+      "updatedAt": "2026-03-09T23:07:16Z",
+      "baseRepository": "sbarguil/LxNM-Updates",
+      "baseRefName": "main",
+      "baseRefOid": "443978d9bfa23cb1817d4dfb869f31746b2efbb4",
+      "headRepository": "sbarguil/LxNM-Updates",
+      "headRefName": "31-Routing-Policy-as-list",
+      "headRefOid": "84b33a1cb1ead3432e79144880c9d3682c70a3fa",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
