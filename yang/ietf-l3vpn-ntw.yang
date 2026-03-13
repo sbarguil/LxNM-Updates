@@ -68,13 +68,6 @@ module ietf-l3vpn-ntw {
      This version of this YANG module is part of RFC 9182; see the
      RFC itself for full legal notices.";
 
-  revision 2025-03-10 {
-    description
-      "Initial revision for -bis.";
-    reference
-      "RFC XXX: A YANG Network Data Model for Layer 3 VPNs";
-  }
-
   revision 2022-02-14 {
     description
       "Initial revision.";
