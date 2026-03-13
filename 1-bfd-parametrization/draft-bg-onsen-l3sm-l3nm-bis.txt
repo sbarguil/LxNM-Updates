@@ -5,8 +5,8 @@
 Operationalizing Network workgroup: WG Working Groupamp; SErvice abstractioNsO. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Informational                                S. Barguil
-Expires: 11 September 2026                                         Nokia
-                                                           10 March 2026
+Expires: 14 September 2026                                         Nokia
+                                                           13 March 2026
 
 
                A YANG Network Data Model for Layer 3 VPNs
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 September 2026.
+   This Internet-Draft will expire on 14 September 2026.
 
 Copyright Notice
 
