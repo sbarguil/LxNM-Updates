@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-12T00:54:14.153689+00:00",
+  "timestamp": "2026-03-15T01:08:41.159219+00:00",
   "repo": "sbarguil/LxNM-Updates",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "https://github.com/oscargdd/lxnm-bis/issues/31",
       "createdAt": "2026-03-09T09:22:19Z",
-      "updatedAt": "2026-03-10T03:42:05Z",
+      "updatedAt": "2026-03-13T08:20:08Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
@@ -75,7 +75,34 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDORh8jGc7q_BUU",
+          "commit": {
+            "abbreviatedOid": "9b23794"
+          },
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Suggestion to add order by user in the policy leaf-list",
+          "createdAt": "2026-03-13T08:18:50Z",
+          "updatedAt": "2026-03-13T08:20:08Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\n        type string;\n        ordered-by user;\n```",
+              "createdAt": "2026-03-13T08:18:50Z",
+              "updatedAt": "2026-03-13T08:20:08Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\n        type string;\n        ordered-by user;\n```",
+              "createdAt": "2026-03-13T08:19:02Z",
+              "updatedAt": "2026-03-13T08:20:08Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 2,
@@ -89,7 +116,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2026-03-10T03:30:20Z",
-      "updatedAt": "2026-03-10T03:41:29Z",
+      "updatedAt": "2026-03-13T08:29:21Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
@@ -101,7 +128,60 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDORh8jGc7q_Jek",
+          "commit": {
+            "abbreviatedOid": "d05548a"
+          },
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-03-13T08:26:57Z",
+          "updatedAt": "2026-03-13T08:28:15Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\n      \"draft-og-onsen-l3nm-bis-00: A YANG Network Data Model for Layer 3 VPNs\";\n```",
+              "createdAt": "2026-03-13T08:26:57Z",
+              "updatedAt": "2026-03-13T08:28:15Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "The suggestion is to wait for the publication time to include in the description the list of changes performed",
+              "createdAt": "2026-03-13T08:27:25Z",
+              "updatedAt": "2026-03-13T08:28:15Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "The suggestion is to set the date to the moment of publication of the draft",
+              "createdAt": "2026-03-13T08:27:59Z",
+              "updatedAt": "2026-03-13T08:28:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDORh8jGc7q_MF1",
+          "commit": {
+            "abbreviatedOid": "d05548a"
+          },
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2026-03-13T08:29:15Z",
+          "updatedAt": "2026-03-13T08:29:21Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\n      \"draft-bg-onsen-vpn-common-bis: A Common YANG Data Model for Layer 2 and Layer 3\n```",
+              "createdAt": "2026-03-13T08:29:15Z",
+              "updatedAt": "2026-03-13T08:29:21Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 3,
@@ -115,19 +195,33 @@
       "labels": [],
       "body": "https://github.com/sbarguil/LxNM-Updates/compare/1-bfd-parametrization?expand=1",
       "createdAt": "2026-03-10T05:17:08Z",
-      "updatedAt": "2026-03-10T05:17:08Z",
+      "updatedAt": "2026-03-13T09:06:56Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
       "headRepository": "sbarguil/LxNM-Updates",
       "headRefName": "1-bfd-parametrization",
-      "headRefOid": "dbdc62b18825db52178cc3f030f0964b93c8a707",
+      "headRefOid": "daa9b9b9b72409131777d6eefc5e71729578dec6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDORh8jGc7q_3PG",
+          "commit": {
+            "abbreviatedOid": "daa9b9b"
+          },
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me",
+          "createdAt": "2026-03-13T09:06:56Z",
+          "updatedAt": "2026-03-13T09:06:56Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
