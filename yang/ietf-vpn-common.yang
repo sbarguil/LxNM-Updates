@@ -1938,6 +1938,7 @@ module ietf-vpn-common {
          the VPN service.";
       leaf-list import-policy {
         type string;
+        ordered-by user;
         description
           "Identifies the import policy.";
       }
