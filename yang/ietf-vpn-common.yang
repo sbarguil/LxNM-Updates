@@ -1944,6 +1944,7 @@ module ietf-vpn-common {
       }
       leaf-list export-policy {
         type string;
+        ordered-by user;
         description
           "Identifies the export policy.";
       }
