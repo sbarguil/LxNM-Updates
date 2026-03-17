@@ -14,7 +14,10 @@ Expires: 18 September 2026                                         Nokia
 
 Abstract
 
-   TODO Abstract
+   Implementations of L3NM models in network controllers have revealed
+   the need for additional functionality not covered in [RFC9182].  This
+   document updates the YANG data models defined in [RFC9182] to address
+   gaps identified during initial implementations.
 
 About This Document
 
@@ -114,6 +117,11 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC9182]  Barguil, S., Gonzalez de Dios, O., Ed., Boucadair, M.,
+              Ed., Munoz, L., and A. Aguado, "A YANG Network Data Model
+              for Layer 3 VPNs", RFC 9182, DOI 10.17487/RFC9182,
+              February 2022, <https://www.rfc-editor.org/rfc/rfc9182>.
 
 6.2.  Informative References
 
