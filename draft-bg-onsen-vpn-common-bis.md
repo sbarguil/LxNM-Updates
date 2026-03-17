@@ -1,9 +1,9 @@
 ---
-title: "A YANG Network Data Model for Layer 3 VPNs"
-abbrev: "ietf-l3vpn-ntw-bis"
+title: "A Common YANG Data Model for Layer 2 and Layer 3 VPNs"
+abbrev: "ietf-vpn-common-bis"
 category: info
 
-docname: draft-bg-onsen-l3sm-l3nm-bis-latest
+docname: draft-bg-onsen-vpn-common-bis-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -12,8 +12,6 @@ v: 3
 area: "Operations and Management"
 workgroup: "Operationalizing Network workgroup: WG Working Groupamp; SErvice abstractioNs"
 keyword:
- - VPNs
- - Network Connectivity
  - Service Provision
 venue:
   group: "Operationalizing Network   group: ONSENamp; SErvice abstractioNs"
@@ -40,11 +38,11 @@ informative:
 
 --- abstract
 
-   Several years have passed since the publication of the L3NM YANG data
-   model, which has since been widely adopted in the industry.
+   Several years have passed since the publication of the LxNM YANG data
+   models, which has since been widely adopted in the industry.
    Implementations in network controllers have revealed gaps in {
-   {!RFC9182}}. This document updates the YANG data models to address
-   those gaps.
+   {!RFC9181}}. This document updates the common YANG data models for
+   L2 and L3 VPN provision to address those gaps.
 
 --- middle
 
