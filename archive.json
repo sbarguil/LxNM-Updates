@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-03-15T01:08:41.159219+00:00",
+  "timestamp": "2026-03-17T01:01:22.829685+00:00",
   "repo": "sbarguil/LxNM-Updates",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "https://github.com/oscargdd/lxnm-bis/issues/31",
       "createdAt": "2026-03-09T09:22:19Z",
-      "updatedAt": "2026-03-13T08:20:08Z",
+      "updatedAt": "2026-03-16T07:06:28Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
       "headRepository": "sbarguil/LxNM-Updates",
       "headRefName": "31-Routing-Policy-as-list",
-      "headRefOid": "9b2379488256d822e68190ec8582007fd25b4889",
+      "headRefOid": "1d896e7f65d5c88211c36c79dcd75859f4052786",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
