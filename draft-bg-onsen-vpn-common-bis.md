@@ -38,8 +38,11 @@ informative:
 
 --- abstract
 
-TODO Abstract
-
+   Several years have passed since the publication of the LxNM YANG data
+   models, which has since been widely adopted in the industry.
+   Implementations in network controllers have revealed gaps in {
+   {!RFC9181}}. This document updates the common YANG data models for
+   L2 and L3 VPN provision to address those gaps.
 
 --- middle
 

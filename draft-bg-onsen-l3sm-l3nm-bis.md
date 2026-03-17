@@ -40,8 +40,7 @@ informative:
 
 --- abstract
 
-TODO Abstract
-
+Implementations of L3NM models in network controllers have revealed the need for additional functionality not covered in {{!RFC9182}}. This document updates the YANG data models defined in {{!RFC9182}} to address gaps identified during initial implementations.
 
 --- middle
 
