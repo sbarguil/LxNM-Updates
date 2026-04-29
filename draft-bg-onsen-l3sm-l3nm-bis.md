@@ -16,9 +16,9 @@ keyword:
  - Network Connectivity
  - Service Provision
 venue:
-  group: "Operationalizing Network   group: ONSENamp; SErvice abstractioNs"
+  group: "Operationalizing Network group: ONSENamp; SErvice abstractioNs"
   type: "Working Group"
-  mail: "onions@ietf.org"
+  mail: "onsen@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/onions/"
   github: "sbarguil/LxNM-Updates"
   latest: "https://sbarguil.github.io/LxNM-Updates/draft-bg-onsen-l3sm-l3nm-bis.html"
@@ -119,23 +119,86 @@ informative:
      models can be used to operationalize Inter-AS VPN options (A, B,
      and C, as defined in {{?RFC4364}}) within the L3NM framework.
 
+# Terminology
 
-# Conventions and Definitions
+   {::boilerplate bcp14-tagged}
 
-{::boilerplate bcp14-tagged}
+   The terminology for describing YANG modules is defined in 
+   {{!RFC7950}}.
+   The meaning of the symbols in the tree diagrams is defined in
+   {{?RFC8340}}.
+
+   In addition to the terms defined in {{!RFC8519}}, this document makes use of the following term:all capitals, as shown here.
+
+## Acronyms and Abbreviations
+
+   The following acronyms and abbreviations are used in this document
+
 
 # Operational Considerations
 
-TBC per {{?I-D.opsarea-rfc5706bis}}.
+   The groupings and augments are introduced as a non-mandatory
+   augmentation -- all new leaves are optional and carry default values
+   consistent with {{?RFC5880}}. Existing L3NM clients that do not
+   populate the bfd container will continue to operate unchanged, and
+   controllers MAY fall back to their default BFD template when the
+   container is absent. 
 
 # Security Considerations
 
 TODO Security
 
-
 # IANA Considerations
 
 This document has no IANA actions.
+
+# Overall Structure of the Enhanced L3NM Module
+
+## BFD parameterization of static routes
+
+   The L3NM YANG data model {{?RFC9182}} allows static routes to be
+   managed within a VPN service. For a particular VPN service, IPv4
+   and IPv6 static routes can be added, modified, or deleted, and the
+   data model allows the operator to indicate whether BFD is desired
+   for a given static route. However, the current model only signals
+   the *intent* to enable BFD; it does not allow the operator to
+   parameterize the BFD session itself.
+
+   In practice, when a controller derives the device configuration
+   from such a static route, it must select a BFD configuration --
+   typically from a predefined template. Operators have requested the
+   ability to customize the main BFD parameters per service so that,
+   for example, faster failure detection can be applied to critical
+   services without affecting the default behavior of others.
+
+   This document extends the L3NM with a new grouping that allows the
+   intended BFD parameters to be expressed directly in the IPv4 and
+   IPv6 static route configuration of a VPN network access.
+
+### New Grouping: `bfd-static-routes`
+
+   A new grouping, `bfd-static-routes`, is defined in the
+   `ietf-l3vpn-ntw` module. It carries the intended BFD configuration
+   to be applied when BFD is enabled for a static route: 
+
+
+   The semantics of each leaf follow {{?RFC5880}}:
+
+   * `bfd-session-name`: an operator-assigned identifier used to
+     reference and track the BFD session associated with the static
+     route.
+   * `desired-min-tx-interval`: the minimum interval, in
+     milliseconds, between transmissions of BFD Control packets, as
+     desired by the local system.
+   * `required-min-rx-interval`: the minimum interval, in
+     milliseconds, between received BFD Control packets that the PE
+     is required to support.
+   * `local-multiplier`: the detection time multiplier, used by the
+     remote system to compute the detection time for the session.
+
+   The `bfd-static-routes` grouping is edfined and used within the IPv4 and
+   IPv6 LAN configuration under the VPN network access in the L3NM,
+   so that BFD parameters can be specified per static route.
 
 
 --- back
