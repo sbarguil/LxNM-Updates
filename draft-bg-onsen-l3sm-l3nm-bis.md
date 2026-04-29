@@ -137,9 +137,85 @@ informative:
 
 # Operational Considerations
 
-   The groupings that are introduced as a non-mandatory-- all new leaves
-   are optional and carry default values. Existing L3NM clients that do
-   not populate the new container will continue to operate unchanged,.
+   This revision of the L3NM module introduces two categories of
+   changes that operators and implementers need to consider when
+   upgrading from {{?RFC9182}}:
+
+   * **Backward-compatible additions**, which can be deployed without
+     affecting existing clients.
+   * **Non-backward-compatible changes**, which require coordinated
+     updates between L3NM clients and servers.
+
+## Backward-Compatible Additions
+
+The new groupings introduced in this document
+<check here -- list the relevant sections, e.g., "(Sections 2, 4,
+and 5)"> are non-mandatory: all new containers and leaves are
+optional and, where applicable, carry default values consistent
+with the referenced standards.
+
+Existing L3NM clients that do not populate the new nodes continue
+to operate unchanged against a server implementing this revision.
+Servers MAY apply default behavior (e.g., a predefined BFD
+template) when the optional containers are absent, preserving the
+semantics of {{?RFC9182}}. Operators can therefore upgrade the
+server side independently of client updates and adopt the new
+capabilities incrementally on a per-service basis.
+
+## Non-Backward-Compatible Changes
+
+   The change of `import-policy` (and, where applicable,
+   `export-policy`) from a `leaf` to a `leaf-list` is **not**
+   backward compatible in the strict YANG sense ({{?RFC7950}},
+   Section 11). The cardinality of the node is altered, and the
+   encoded form of the data changes from a single value to a list.
+
+   Operationally, this means:
+
+   * Existing L3NM clients that encode `import-policy` as a single
+     string MUST be updated to encode it as a list, even when only
+     one policy is configured.
+   * Servers implementing this revision will not accept the
+     single-value encoding produced by clients conformant with
+     {{?RFC9182}}.
+   * Mixed-version deployments (e.g., a {{?RFC9182}} client paired
+     with a server implementing this revision) will fail validation
+     on this node until the client is updated.
+
+   This change is retained in the revision for the following reasons:
+
+   * The single-leaf form is too restrictive to represent common
+     operator intent, where multiple ordered policies are applied to
+     a single VPN network access.
+   * The migration path is mechanical: existing single-value
+     configurations can be expressed as a one-element list without
+     semantic loss.
+   * No information is lost, and no existing semantics are
+     redefined.
+
+## Migration Guidance
+
+   Operators upgrading from an L3NM deployment based on
+   {{?RFC9182}} SHOULD plan the migration in two stages:
+
+   1. **Server upgrade.** Deploy servers implementing this revision.
+      Existing clients continue to operate against the new server
+      for all backward-compatible nodes (Section N.1).
+   2. **Client update for non-backward-compatible nodes.** Update
+      client encodings for the affected nodes (Section N.2) before
+      provisioning new services that rely on the updated cardinality
+      or, in the case of `import-policy`, before any reconfiguration
+      of the affected nodes on existing services.
+
+   <check here -- confirm whether you want to include guidance for a
+   transition period during which both encodings are tolerated. Some
+   bis revisions include a `deviation` or recommend that servers
+   accept both forms during migration; others enforce a hard cutover.
+   Worth aligning with the WG.>
+
+   Implementers SHOULD document the version of the L3NM module they
+   support and clearly indicate whether their implementation is
+   compatible with {{?RFC9182}}, this revision, or both.
 
 # Security Considerations
 
@@ -197,6 +273,27 @@ This document has no IANA actions.
    IPv6 LAN configuration under the VPN network access in the L3NM,
    so that BFD parameters can be specified per static route.
 
+## Multiple Routing Policies per VPN Network Access
+
+   The L3NM YANG data model {{?RFC9182}} allows an operator to associate
+   a routing policy with a VPN network access through the
+   `import-policy` and `export-policy` leaves. Each leaf is currently
+   defined as a single `string`, which restricts the operator to
+   referencing exactly one policy per direction.
+
+   In practice, network devices commonly support attaching multiple
+   routing policies to a service, evaluated in the order in which they
+   are listed. Modeling this as a single leaf forces operators to
+   either collapse multiple intents into a single composite policy or
+   maintain external orchestration to handle the per-service ordering
+   of policies. Both approaches reduce flexibility and increase the
+   risk of configuration drift between the service model and the
+   device.
+
+   This revision of the L3NM module changes the affected nodes from
+   `leaf` to `leaf-list`, allowing multiple routing policies to be
+   referenced per VPN network access while preserving evaluation
+   order.
 
 --- back
 
