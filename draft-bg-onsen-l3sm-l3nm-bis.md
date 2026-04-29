@@ -123,7 +123,7 @@ informative:
 
    {::boilerplate bcp14-tagged}
 
-   The terminology for describing YANG modules is defined in 
+   The terminology for describing YANG modules is defined in
    {{!RFC7950}}.
    The meaning of the symbols in the tree diagrams is defined in
    {{?RFC8340}}.
