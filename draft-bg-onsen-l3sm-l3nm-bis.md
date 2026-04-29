@@ -252,7 +252,7 @@ This document has no IANA actions.
 
    A new grouping, `bfd-static-routes`, is defined in the
    `ietf-l3vpn-ntw` module. It carries the intended BFD configuration
-   to be applied when BFD is enabled for a static route: 
+   to be applied when BFD is enabled for a static route:
 
 
    The semantics of each leaf follow {{?RFC5880}}:
