@@ -137,12 +137,9 @@ informative:
 
 # Operational Considerations
 
-   The groupings and augments are introduced as a non-mandatory
-   augmentation -- all new leaves are optional and carry default values
-   consistent with {{?RFC5880}}. Existing L3NM clients that do not
-   populate the bfd container will continue to operate unchanged, and
-   controllers MAY fall back to their default BFD template when the
-   container is absent. 
+   The groupings that are introduced as a non-mandatory-- all new leaves
+   are optional and carry default values. Existing L3NM clients that do
+   not populate the new container will continue to operate unchanged,.
 
 # Security Considerations
 
