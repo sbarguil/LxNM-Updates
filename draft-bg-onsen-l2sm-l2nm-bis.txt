@@ -5,20 +5,16 @@
 Operationalizing Network workgroup: WG Working Groupamp; SErvice abstractioNsO. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Informational                                S. Barguil
-Expires: 31 October 2026                                           Nokia
-                                                           29 April 2026
+Expires: 25 April 2027                                             Nokia
+                                                         22 October 2026
 
 
-         A Common YANG Data Model for Layer 2 and Layer 3 VPNs
-                  draft-bg-onsen-vpn-common-bis-latest
+               A YANG Network Data Model for Layer 2 VPNs
+                  draft-bg-onsen-l2sm-l2nm-bis-latest
 
 Abstract
 
-   Several years have passed since the publication of the LxNM YANG data
-   models, which has since been widely adopted in the industry.
-   Implementations in network controllers have revealed gaps in {
-   {!RFC9181}}. This document updates the common YANG data models for L2
-   and L3 VPN provision to address those gaps.
+   TODO Abstract
 
 About This Document
 
@@ -27,7 +23,7 @@ About This Document
    The latest revision of this draft can be found at
    https://sbarguil.github.io/LxNM-Updates/draft-bg-onsen-l3sm-l3nm-
    bis.html.  Status information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-bg-onsen-vpn-common-bis/.
+   https://datatracker.ietf.org/doc/draft-bg-onsen-l2sm-l2nm-bis/.
 
    Discussion of this document takes place on the Operationalizing
    Network group: ONSENamp; SErvice abstractioNs Working Group mailing
@@ -53,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 October 2026.
+   This Internet-Draft will expire on 25 April 2027.
 
 Copyright Notice
 
