@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-20T02:18:00.154029+00:00",
+  "timestamp": "2026-10-22T02:05:31.901114+00:00",
   "repo": "sbarguil/LxNM-Updates",
   "labels": [
     {
@@ -47,9 +47,463 @@
       "name": "wontfix",
       "description": "This will not be worked on",
       "color": "ffffff"
+    },
+    {
+      "name": "L3NM",
+      "description": "",
+      "color": "ca51cc"
+    },
+    {
+      "name": "L2NM",
+      "description": "",
+      "color": "5ac935"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 5,
+      "id": "I_kwDORh8jGc8AAAABY9--3Q",
+      "title": "Adding BFD parametrization container to IPv4/IPv6 static route",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/5",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "LXNM allows to add static routes to the VPN. The new requirement is to add support for adding BFD configuration in the IPv4 and IPv6 static routes.\n\nProposal below:\n```\n\ngrouping bfd-static-routes {\ncontainer bfd {\ndescription\n\"Container for Static Routes BFD Configuration.\";\nleaf bfd-session-name {\ntype string;\ndescription\n\"Specifies the name of a BFD session to associate and track.\";\n}\nleaf desired-min-tx-interval {\ntype uint32;\nunits \"miliseconds\";\ndefault \"1000\";\ndescription\n\"The minimum interval between\ntransmissions of BFD Control packets, as\ndesired by the operator.\";\nreference\n\"RFC 5880: Bidirectional Forwarding\nDetection (BFD), Section 6.8.7\";\n}\n\n   leaf required-min-rx-interval {\n     type uint32;\n       units \"miliseconds\";\n       default \"1000\";\n       description\n         \"The minimum interval between received BFD \n          Control packets that the PE should support.\";\n       reference\n         \"RFC 5880: Bidirectional Forwarding\n          Detection (BFD), Section 6.8.7\";\n      }\n\n   leaf local-multiplier {\n     type uint8 {\n       range \"1..255\";\n     }\n     default \"3\";\n     description\n       \"Specifies the detection multiplier that\n       is transmitted to a BFD peer.\n       The detection interval for the receiving\n       BFD peer is calculated by multiplying the\n       value of the negotiated transmission\n       interval by the received detection\n       multiplier value.\";\n    reference\n      \"RFC 5880: Bidirectional Forwarding\n       Detection (BFD), Section 6.8.7\";\n     }\n}\n}\n\n```\nBelow example on how to solve it with augmentation (in the bis this would go in the model)\n\n```\naugment \"/l3vpn-ntw:l3vpn-ntw/l3vpn-ntw:vpn-services/l3vpn-ntw:vpn-service/l3vpn-ntw:vpn-nodes\"\n+ \"/l3vpn-ntw:vpn-node/l3vpn-ntw:vpn-network-accesses/l3vpn-ntw:vpn-network-access/l3vpn-ntw:routing-protocols\"\n+ \"/l3vpn-ntw:routing-protocol/l3vpn-ntw:static/l3vpn-ntw:cascaded-lan-prefixes/l3vpn-ntw:ipv4-lan-prefixes\" {\nuses bfd-static-routes;\n}\n\naugment \"/l3vpn-ntw:l3vpn-ntw/l3vpn-ntw:vpn-services/l3vpn-ntw:vpn-service/l3vpn-ntw:vpn-nodes\"\n      + \"/l3vpn-ntw:vpn-node/l3vpn-ntw:vpn-network-accesses/l3vpn-ntw:vpn-network-access/l3vpn-ntw:routing-protocols\"\n      + \"/l3vpn-ntw:routing-protocol/l3vpn-ntw:static/l3vpn-ntw:cascaded-lan-prefixes/l3vpn-ntw:ipv6-lan-prefixes\" {\n    uses bfd-static-routes;\n```",
+      "createdAt": "2026-10-22T00:09:48Z",
+      "updatedAt": "2026-10-22T00:14:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDORh8jGc8AAAABY-Bcuw",
+      "title": "Management of VLAN 0 in tagged interfaces",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/6",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "SAP 1/1/1.0 is valid configuration: \n\n\n```\nconfigure\n    service\n        vprn 200 customer 200 create\n            interface \"interface-1\" create\n                address 192.168.1.1/24\n                sap 1/1/1.0 create\n                exit\n            exit\n        exit\n    exit\n```\n\nHowever the LxNM has a range defined for cvlan between 1 and 4094.  ",
+      "createdAt": "2026-10-22T00:13:58Z",
+      "updatedAt": "2026-10-22T00:14:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDORh8jGc8AAAABY-DHkA",
+      "title": "Missing blocks (position against Attachment Circuits)",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/7",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "Present now in the AC-Model but not in the L3NM:\n\n- BGP Peer group creation\n- BGP Redistribution rules\n- ACL pointer to attach forwarding filter",
+      "createdAt": "2026-10-22T00:16:36Z",
+      "updatedAt": "2026-10-22T00:16:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDORh8jGc8AAAABY-DafQ",
+      "title": "Operative Status Clarification",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/8",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "documentation"
+      ],
+      "body": "Understanding the interrelationships between the operational status of VPN services, VPN nodes, and VPN network access is another significant operational gap. The status of a VPN service may depend on the status of the underlying VPN nodes and the network access provided to the VPN.\n\nTo address this gap, IETF should establish clear dependencies and correlations between the various operational statuses. This could involve defining specific criteria for determining the overall status of a VPN service based on the status of its constituent VPN nodes and network access components. Moreover, real-time monitoring and correlation of status information can provide insights into the health and performance of VPN services.",
+      "createdAt": "2026-10-22T00:17:03Z",
+      "updatedAt": "2026-10-22T00:17:32Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "OWNER",
+          "body": "see also, https://mailarchive.ietf.org/arch/msg/onions/if1BRJpZqNNxcemra8sq8yz-FBQ/\n\n> From: Alexander Vainshtein <Alexander.Vainshtein=40rbbn.com@dmarc.ietf.org<\n> \n> I have looked up the standard and found that it presumably mentions Operational Status of a pseudowire as oper-status without any clarifications and/or references, and, specifically, without any association with various indicators in the PW Status TLV.\n> \n> This is quite different from RFC [5601<https://datatracker.ietf.org/doc/html/rfc5601>](http://5601%3Chttps//datatracker.ietf.org/doc/html/rfc5601%3E),  which explicitly provides such linkage as can be seen from the quoted text below:\n> \n>   pwOperStatus OBJECT-TYPE\n>      SYNTAX        PwOperStatusTC\n>      MAX-ACCESS    read-only\n>      STATUS        current\n>      DESCRIPTION\n>           \"This object indicates the operational status of the PW; it\n>            does not reflect the status of the Customer Edge (CE) bound\n>            interface.  It is set to down only if pwNotForwarding,\n>            psnFacingPwRxFault, or psnFacingPwTxFault indications are\n>            set in pwLocalStatus or pwRemoteStatus.\n>            It indicates 'lowerLayerDown' if the only reason for\n>            not being in the 'up' state is that either the outer tunnel\n>            or physical layer of the network side is in the 'down'\n>            state.\n>            All other states are declared based on the description\n>            of the PwOperStatusTC.\n>            \"\n> \n> I wonder whether, from your POV, the quoted definition of the PW Operatonal Status is still applicable or not.\n\n\nRegards, and lots of thanks in advance,\nSasha",
+          "createdAt": "2026-10-22T00:17:16Z",
+          "updatedAt": "2026-10-22T00:17:16Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDORh8jGc8AAAABY-D81g",
+      "title": "Is the Service running on the Network?",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/9",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "question",
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "How can the northbound system be assured with 100% certainty that a configuration has been successfully installed on the network device?\n\nWhat mechanisms or feedback loops exist to confirm successful configuration deployment beyond simple acknowledgment?\n\nHow does the system can handle transient errors or partial configuration applications from the model perspective?\n\nAre there specific operational attributes that can be used to reflect the real-time status of the configuration?\n\nDoes the network element provide any operational state parameters or notifications that indicate whether the configuration is active, pending, or has failed?\n\nIf a configuration is manually removed via CLI at the network device, is there a mechanism to reflect this change northbound?\n",
+      "createdAt": "2026-10-22T00:17:55Z",
+      "updatedAt": "2026-10-22T00:18:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDORh8jGc8AAAABY-EyAw",
+      "title": "L2NM - EVPN Remote and Local eth-tag",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/10",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "Following options are not supported \n\n  ```\nconfigure\n    service\n        epipe 1133 name \"EVPN-ELINE-SINGLE-HOME-FIII\" customer 1 create\n            description \"EVPN-ELINE-SINGLE-HOME-FIII\"\n            service-mtu 9098\n            bgp\n                route-distinguisher 27699:31133\n                route-target export target:27699:31133 import target:27699:31133\n            exit\n            bgp-evpn\n                **local-ac-name \"AC-LOCAL3-REMOTO3\"\n                    eth-tag 1133**\n                exit\n                **remote-ac-name \"AC-REMOTO3-LOCAL3\"\n                    eth-tag 3311**\n                exit\n                evi 1133\n                mpls bgp 1\n                    auto-bind-tunnel\n                        resolution any\n                    exit\n                    no shutdown       \n                exit\n            exit\n            sap lag-123:1133 create\n                no shutdown\n            exit\n            no shutdown\n        exit\n```",
+      "createdAt": "2026-10-22T00:19:20Z",
+      "updatedAt": "2026-10-22T00:19:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDORh8jGc8AAAABY-FDaA",
+      "title": "L2NM: Explicity asign a RD at node level",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/11",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "In the model, a RD must be always asigned via profile at service level. It is useful to be able to set a explicit RD directly at nodel level overriding the value of the profile. This way, a common profile can be used for the whole services for use cases where only RD changes per node. \n\nThe path were the leaf would be added.\n```\n\"/l2vpn-ntw:l2vpn-ntw/l2vpn-ntw:vpn-services/l2vpn-ntw:vpn-service/l2vpn-ntw:vpn-nodes/l2vpn-ntw:vpn-node/\" \n+ \"l2vpn-ntw:active-global-parameters-profiles/l2vpn-ntw:global-parameters-profile\" {\n \n\tleaf rd {\n          type rt-types:route-distinguisher;\n          description\n            \"Indicates an RD value that is explicitly assigned.\";\n        }\n  }\n```",
+      "createdAt": "2026-10-22T00:19:48Z",
+      "updatedAt": "2026-10-22T00:21:23Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDORh8jGc8AAAABY-GJ9w",
+      "title": "L2NM: add support for Flexible Cross-Connect (FXC) Service (RFC 9744)",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/12",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "L2NM: add support for Flexible Cross-Connect (FXC) Service (RFC 9744)",
+      "createdAt": "2026-10-22T00:21:45Z",
+      "updatedAt": "2026-10-22T00:21:58Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDORh8jGc8AAAABY-GewA",
+      "title": "L2NM: support for vlan-lists/vlan-ranges",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/13",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "When defining a Layer 2 service, sometimes multiple VLANs are mapped into a given service. It would be good to support this in the L2NM encapsulation stanza. \n\nExamples:\n\n(i) typically used in single-tagged scenarios:\nvlan-id-list [ 200 210-219 222 234 240-249 ];\n\n\n(ii) dual-tagged scenario, with s-vlan=430 and a list of c-vlans:\nvlan-tags outer 430 inner-list [ 200 210-219 222 234 240-249 ];\n\nI don't think we need to define tag translate operations for the lists shown above, I have not seen that deployed. ",
+      "createdAt": "2026-10-22T00:22:18Z",
+      "updatedAt": "2026-10-22T00:22:32Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDORh8jGc8AAAABY-GzVg",
+      "title": "L2NM: support for translate-push and pop-translate tag operations",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/14",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "I think that in the current version of the L2NM, translate-push and pop-translate are not supported. It would be useful to support them, for example:\n\ntranslate-push: packet arrives from CE with tag 101. This is swapped for tag 500 and then tag 400 is pushed on top.\n\npop-translate: packet arrives from CE with tag 100 on top and tag 200 underneath. Tag 100 is popped and tag 200 is swapped for tag 300.\n\n",
+      "createdAt": "2026-10-22T00:22:53Z",
+      "updatedAt": "2026-10-22T00:23:05Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDORh8jGc8AAAABY-HMsQ",
+      "title": "(SRv6 VPN) ZTE Implementation Feedback for L2NM/L3NM Models",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/15",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "ZTE has implemented and deployed both L2NM (RFC 9291) and L3NM (draft-ietf-opsawg-l3sm-l3nm-08) YANG models in production with their customers.\n\nPreviously, L2SM and L3SM were also implemented, but are no longer evolving, as L2NM and L3NM now sufficiently meet customer requirements.\n\nNoted gap: SRv6 VPN is not currently supported by the existing models.\n\nReported by: Xiao Min",
+      "createdAt": "2026-10-22T00:23:34Z",
+      "updatedAt": "2026-10-22T00:23:42Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDORh8jGc8AAAABY-Hdrg",
+      "title": "LxNM Realization",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/16",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "4.\tMapping of LxNM against underlay infrastructure (RSVP-TE tunnel, SR-policy). This is covered in the \u201cservice-mapping\u201d draft in TEAS but before starting the implementation I had a chat with some operators (including some of our friends in CC \ud83d\ude03 ) and the general agreement was that an augmentation to LxNM models was more appropriate. \n\nReported by: Daniele & Sujay",
+      "createdAt": "2026-10-22T00:24:02Z",
+      "updatedAt": "2026-10-22T00:24:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDORh8jGc8AAAABY-IQtg",
+      "title": "L3NM Multicast",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/17",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "3.\tFor L3VPN with multicast ,cisco  mvpn augmentation is added to include varios profiles ( ipmsi and spmsi ) , would have to be enabled across vendors to include standardized profiles. There is no official YANG module from IETF as of today that supports full MVPN/SPMSI/IPMSI under L3NM directly.\n\nReported by: Daniele & Sujay",
+      "createdAt": "2026-10-22T00:25:21Z",
+      "updatedAt": "2026-10-22T00:25:26Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 18,
+      "id": "I_kwDORh8jGc8AAAABY-JFzg",
+      "title": "SRv6 Support",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/18",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "2.\tSRv6 Grouping in L2VPN and L3VPN , currently augmented and need to support srv6 locator preferences, address-family based SRv6 .",
+      "createdAt": "2026-10-22T00:26:48Z",
+      "updatedAt": "2026-10-22T00:27:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDORh8jGc8AAAABY-Jatg",
+      "title": "Performance Monitoring",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/19",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "1.\tITU-T Y.1731 performance monitoring in Ethernet based networks . L2NM itself (RFC\u202f9291) doesn't natively include OAM specifics \n\nReported by: Daniele & Sujay",
+      "createdAt": "2026-10-22T00:27:23Z",
+      "updatedAt": "2026-10-22T00:27:38Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "OWNER",
+          "body": "RFC 9375 defines a YANG model for both Network performance monitoring and VPN performance monitoring, we should consider how RFC9375 can be consolidated into LxNM.",
+          "createdAt": "2026-10-22T00:27:30Z",
+          "updatedAt": "2026-10-22T00:27:30Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDORh8jGc8AAAABY-J2KQ",
+      "title": "No network model for ACLs",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/20",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "VPN services often include mechanisms to filter forwarding packets. \n\nToday, the LxNM models allow to include a 'forwarding-profile-identifier'. A forwarding profile refers to the\n policies that apply to the forwarding of packets conveyed within a      VPN.  Such policies may consist, for example, of applying Access Control Lists (ACLs).\n\nHowever, currently there is not an ACL network service model (even though a device level ACL model exists). ",
+      "createdAt": "2026-10-22T00:28:10Z",
+      "updatedAt": "2026-10-22T00:28:10Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 21,
+      "id": "I_kwDORh8jGc8AAAABY-KFnA",
+      "title": "No network model for routing policies",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/21",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM",
+        "L2NM"
+      ],
+      "body": "Advance connectivity services require the creation of complex policies. The LxNM models allows to indicate which policy (or policies) should be used. However, LxNM does not include the definition of policies. There are a set a device models which could be used as a base for the network model.",
+      "createdAt": "2026-10-22T00:28:36Z",
+      "updatedAt": "2026-10-22T00:28:42Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDORh8jGc8AAAABY-KbwA",
+      "title": "Applicability to Option A, B, C",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/22",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "this also cover the link with AC models.",
+      "createdAt": "2026-10-22T00:29:12Z",
+      "updatedAt": "2026-10-22T00:30:54Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "OWNER",
+          "body": "As part of this effort, we are seeking guidance on how to model and operationalize Inter-AS VPN options (A, B, and C as defined in RFC 4364) using the L3NM framework. While we understand that L3NM provides a service-centric and abstracted model (complementing L3SM), we are particularly interested in how to bridge this abstraction to the specific Inter-AS deployment models in a scalable and standardized way.\n \nOur Questions and Clarifications:\n \n1. Inter-AS Option A (VRF-to-VRF at ASBR)\nIn this model, ASBRs behave similarly to PEs, with VRFs on both sides and CE-like links between ASBRs.\nCan L3NM model this scenario by treating each ASBR as a site-network-access connecting to a vpn-service, where the remote ASBR is abstracted as a CE?\nAre there any attributes (e.g., RTs, routing protocol types) that you would recommend modeling explicitly to support this case?\n \n2. Inter-AS Option B (EBGP between ASBRs using VPNv4/v6)\nHere, ASBRs perform VPNv4/v6 route exchange via EBGP, and VRFs reside only on PEs.\nDoes L3NM support modeling such inter-AS ASBR peering relationships directly?\nWould it be appropriate to rely on RFC 8345 (Network Topology YANG Model) in conjunction with L3NM to represent AS-level connectivity and the inter-domain peering context?\n \nWould you recommend an augmentation or interface between L3NM and a topology model to capture this case effectively?\n \n3. Inter-AS Option C (MP-BGP between PEs, ASBRs as MPLS Transit)\nThis option uses direct MP-BGP sessions between PEs, with ASBRs acting as label-switching transit routers.\nIs there a way in L3NM to explicitly model PE-to-PE overlay connections that traverse non-service-aware ASBRs?\nShould ASBRs in this case be entirely abstracted from the L3NM model and instead represented within the network topology ?\n \nAre there any existing drafts, extensions, or design guidelines currently under consideration for L3NM that address multi-AS or inter-domain VPN service automation?\n",
+          "createdAt": "2026-10-22T00:30:54Z",
+          "updatedAt": "2026-10-22T00:30:54Z"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "I_kwDORh8jGc8AAAABY-Kz3w",
+      "title": "Enhance peer-as YANG Definition with union Including string Type",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/23",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "\nDear L3NM Working Group Members,\n\nI am writing to propose a modification to the peer-as leaf definition within our YANG models. Currently, the peer-as leaf is defined as:\n\n```\nleaf peer-as {\ntype inet:as-number;\nmandatory true;\ndescription\n\"Indicates the customer's ASN when\nthe customer requests BGP routing.\";\n}\n```\n\nWhile type inet:as-number is the standard and semantically correct choice for Autonomous System Numbers (ASNs), I propose introducing a union type for peer-as to allow for greater flexibility, specifically by including a string type alongside inet:as-number. This would accommodate certain operational or legacy requirements where ASNs might be represented in non-standard string formats.\n\nThe proposed modification would look like this:\n\n```\nleaf peer-as {\nmandatory true;\ndescription\n\"Indicates the customer's ASN when\nthe customer requests BGP routing.\";\ntype union {\ntype inet:as-number; // Retain the standard ASN type\ntype string {\n// Define a pattern that allows for specific string representations,\n// e.g., asdot+ or other custom formats.\n// Example pattern (this would need to be carefully refined):\npattern '[0-9]+.[0-9]+';\ndescription \"Allows for ASNs represented as strings, e.g., asdot+ format or other specific string notations.\";\n}\n}\n}\n```\n\nThe rationale for this proposal is to provide a mechanism for:\n\nEnhanced Flexibility: To support scenarios where ASNs are provided or consumed in specific string formats that might not be strictly conformant with inet:as-number's internal parsing or for custom/legacy system integrations.\nExplicit String Representation: Even though inet:as-number handles both \"asplain\" (integer) and \"asdot+\" (e.g., 65000.100) notations, explicitly allowing a string type in the union can provide a clear distinction for systems that prefer to represent \"asdot+\" as a string or require other specific string patterns.\n\nIt is crucial to acknowledge the implications of including a string type. A broadly defined pattern, such as [0-9]+.[0-9]+, could inadvertently accept values that are syntactically valid strings but semantically invalid ASNs. For instance, a value like 64086.59905 would be accepted by this pattern, despite not being a valid ASN in standard \"asplain\" or \"asdot+\" formats. Therefore, if a string type is included, its pattern must be meticulously crafted to strictly validate against intended string representations (e.g., a precise regex for \"asdot+\" or other agreed-upon formats) to prevent the configuration of semantically incorrect data.\n\nThis approach aims to strike a balance between strict type enforcement and practical operational flexibility.\n\nThank you for your time and consideration.\n\n",
+      "createdAt": "2026-10-22T00:29:52Z",
+      "updatedAt": "2026-10-22T00:30:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDORh8jGc8AAAABY-LMgA",
+      "title": "Add EVI as part of the L2NM",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/24",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L2NM"
+      ],
+      "body": "Each EVI maps to a specific EVPN service (e.g., a Layer 2 VPN bridging a particular VLAN across the EVPN fabric).",
+      "createdAt": "2026-10-22T00:30:33Z",
+      "updatedAt": "2026-10-22T00:30:33Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 25,
+      "id": "I_kwDORh8jGc8AAAABY-MKjw",
+      "title": "Routing Policies as a List",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/25",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "Some devices support the addition of routing policies as list of leaf-list within the VPRN services:\n\n```\nconfigure\n  /service vprn VPRN-01\n    import-policy-list POL-ALLOW-VOIP\n    import-policy-list POL-ALLOW-VIDEO\n    import-policy-list POL-DENY-UNKNOWN\n    commit\n\n```\nRigth Now the L3NM only handles one policy:\n\n**name** | import-policy| -->type leaf (string)\n\nThis will provide greater flexibility and robustness to the implementation.",
+      "createdAt": "2026-10-22T00:32:14Z",
+      "updatedAt": "2026-10-22T00:32:21Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 26,
+      "id": "I_kwDORh8jGc8AAAABY-Mfpw",
+      "title": "Route-Policy Association Complexity",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/26",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Current RFC 9182 Approach:\n\nRoute-policies are associated via vpn-instance-profiles and active-instance-profiles. This indirection adds complexity without clear operational benefit for many deployments. A service provider wants to simply attach a VRF export policy to a VPN site endpoint. With the current model, they must:\n\n1. Define a vpn-instance-profile\n2. Configure routing parameters within it\n3. Reference it via active-instance-profiles at the vpn-network-access level\n4. Manage profile lifecycle separately from the VPN service\n\n\nPropose a simplified, direct route-policy binding at the vpn-network-access level as an alternative mechanism\nThis does not require changing the existing model but could be proposed as an optional augmentation or an update to the applicability statement. Operators can directly associate policies to VPN endpoints without managing separate profile lifecycles and reducing configuration steps ",
+      "createdAt": "2026-10-22T00:32:48Z",
+      "updatedAt": "2026-10-22T00:32:48Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDORh8jGc8AAAABY-MwKA",
+      "title": "Lack of Metadata for Route-Policy Applicability",
+      "url": "https://github.com/sbarguil/LxNM-Updates/issues/27",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "L3NM"
+      ],
+      "body": "Current RFC 9067 Gap\n\nRFC 9067 defines policy-definitions as a flat list with no mechanism to indicate:\n\nWhere a policy is intended to be used\nWhich customer/tenant it belongs to\nWhich device platforms support it\n\ne.g. A service provider has 500 route-policies.\nWhen an operator provisions a new VPN site for Customer-A and needs to select a VRF export policy, the UI presents all 500 policies. The operator must:\n\nManually identify which policies belong to Customer-A\nKnow which policies are valid for VRF export (vs. BGP neighbor or redistribution)\nHope they don't accidentally select CUST-B-VRF-IMPORT for Customer-A's VRF export\n\nProposed YANG augmentation to RFC 9067 that supports metadata annotations for:\nValid attachment points per policy\nTenant/customer association\nPlatform constraints\nThis could be proposed as an informational or standards-track draft extending RFC 9067",
+      "createdAt": "2026-10-22T00:33:13Z",
+      "updatedAt": "2026-10-22T00:33:24Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -195,7 +649,7 @@
       "labels": [],
       "body": "https://github.com/sbarguil/LxNM-Updates/compare/1-bfd-parametrization?expand=1",
       "createdAt": "2026-03-10T05:17:08Z",
-      "updatedAt": "2026-03-13T09:06:56Z",
+      "updatedAt": "2026-10-22T00:10:58Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
@@ -220,6 +674,32 @@
           "createdAt": "2026-03-13T09:06:56Z",
           "updatedAt": "2026-03-13T09:06:56Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDORh8jGc8AAAABTj9eBg",
+          "commit": {
+            "abbreviatedOid": "daa9b9b"
+          },
+          "author": "sbarguil",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-22T00:10:26Z",
+          "updatedAt": "2026-10-22T00:10:57Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "```suggestion\n        units \"milliseconds\";\n```",
+              "createdAt": "2026-10-22T00:10:27Z",
+              "updatedAt": "2026-10-22T00:10:58Z"
+            },
+            {
+              "originalPosition": 30,
+              "body": "```suggestion\n         units \"milliseconds\";\n```",
+              "createdAt": "2026-10-22T00:10:42Z",
+              "updatedAt": "2026-10-22T00:10:58Z"
+            }
+          ]
         }
       ]
     },
@@ -228,24 +708,26 @@
       "id": "PR_kwDORh8jGc7LHN0n",
       "title": "Add IDs",
       "url": "https://github.com/sbarguil/LxNM-Updates/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "sbarguil",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2026-03-17T05:27:04Z",
-      "updatedAt": "2026-04-29T11:20:10Z",
+      "updatedAt": "2026-10-22T00:02:46Z",
       "baseRepository": "sbarguil/LxNM-Updates",
       "baseRefName": "main",
       "baseRefOid": "782255ee5f3ccbd9547c5852d53028befdeff0ce",
       "headRepository": "sbarguil/LxNM-Updates",
       "headRefName": "add-IDs",
       "headRefOid": "45983e2ba26286b675acf75bcd72dc934123a9a2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-10-22T00:02:45Z",
+      "mergedAt": "2026-10-22T00:02:45Z",
+      "mergedBy": "sbarguil",
+      "mergeCommit": {
+        "oid": "22fd789c860d0fd588f1f069a8121faf384f0299"
+      },
       "comments": [],
       "reviews": []
     }
