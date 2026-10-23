@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>An Update of Service and Network YANG Data Models</title>
+<meta content="Oscar Gonzalez de Dios" name="author">
+<meta content="Samier Barguil" name="author">
+<meta content="
+       Service &amp; Network data models have been implemented in recent years to facilitate the deployment of connectivity services such as Layer 2 and Layer 3 VPN services in provider networks. This document reports the findings from the implementations, including missing functionalities, configuration blocks aligment against recent network models published, operational issues/limitatations and enhancements. 
+    " name="description">
+<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="Network Models" name="keyword">
+<meta content="L3NM" name="keyword">
+<meta content="L2NM" name="keyword">
+<meta content="draft-bg-onions-update-network-service-models-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.34.1
+    Python 3.14.8
+    ConfigArgParse 1.8.0
+    google-i18n-address 3.1.1
+    intervaltree 3.2.1
+    Jinja2 3.1.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.13.4
+    pycountry 24.6.1
+    PyYAML 6.0.3
+    requests 2.33.1
+    wcwidth 0.9.2
+-->
+<link href="draft-bg-onions-update-network-service-models.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight {
+  margin: 1em 0;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
+}
+svg {
+  display: block;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
+}
+.alignCenter {
+  margin: 1em 0;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+  & li {
+    margin-top: 0.5em;
+  }
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+      float: none;
+    }
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a {
+  text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
+}
+.iref + a[href].internal {
+  color: var(--text-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+  caption-side: bottom;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
+  }
+  pre, svg {
+    display: inline-block;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
+}
+
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
+  }
+  @media print {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+  & .prepared {
+    float: right;
+  }
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
+}
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
+}
+
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
+  }
+}
+
+/* Comments */
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+
+@media screen {
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
+      }
+    }
+    & a.toplink {
+      float: right;
+    }
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
+    }
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
+  }
+}
+
+/* TOC layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc {
+    page-break-before: always;
+    border-top: none;
+    padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">Service &amp; Network Data Models Update</td>
+<td class="right">October 2026</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Dios &amp; Barguil</td>
+<td class="center">Expires 26 April 2027</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-bg-onions-update-network-service-models-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2026-10-23" class="published">23 October 2026</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2027-04-26">26 April 2027</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">O. G. D. Dios</div>
+<div class="org">Telefonica</div>
+</div>
+<div class="author">
+      <div class="author-name">S. Barguil</div>
+<div class="org">Nokia</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">An Update of Service and Network YANG Data Models</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">Service &amp; Network data models have been implemented in recent years to facilitate the deployment of connectivity services such as Layer 2 and Layer 3 VPN services in provider networks. This document reports the findings from the implementations, including missing functionalities, configuration blocks aligment against recent network models published, operational issues/limitatations and enhancements.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://oscargdd.github.io/lxnm-bis/draft-bg-onions-update-network-service-models.html">https://oscargdd.github.io/lxnm-bis/draft-bg-onions-update-network-service-models.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-bg-onions-update-network-service-models/">https://datatracker.ietf.org/doc/draft-bg-onions-update-network-service-models/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        ONSEN Working Group mailing list (<span><a href="mailto:onions@ietf.orge.com">mailto:onions@ietf.orge.com</a></span>).<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/oscargdd/lxnm-bis">https://github.com/oscargdd/lxnm-bis</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 26 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2026 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-service-and-network-yang-da" class="internal xref">Service and Network YANG Data Models in the IETF</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-observations-and-new-requir" class="internal xref">Observations and new requirements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-enhancements-to-lxsm-and-lx" class="internal xref">Enhancements to LxSM and LxNM</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.1">
+                    <p id="section-toc.1-1.4.2.1.2.1.1"><a href="#section-4.1.1" class="auto internal xref">4.1.1</a>.  <a href="#name-l3nm-enhancements" class="internal xref">L3NM Enhancements</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1.2.2">
+                    <p id="section-toc.1-1.4.2.1.2.2.1"><a href="#section-4.1.2" class="auto internal xref">4.1.2</a>.  <a href="#name-l2nm-enhancements" class="internal xref">L2NM Enhancements</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-new-functionalities-require" class="internal xref">New Functionalities Required to Fully Support Connectivity Services</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-status-of-the-intended-netw" class="internal xref">Status of the Intended Network Service</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-summary" class="internal xref">Summary</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">Service and Network YANG data models <span>[<a href="#RFC8199" class="cite xref">RFC8199</a>]</span><span>[<a href="#RFC8309" class="cite xref">RFC8309</a>]</span> such as the Layer 3 Network Model (L3NM) <span>[<a href="#RFC9182" class="cite xref">RFC9182</a>]</span> and the Layer 2 Network Model (L2NM) <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span> have been implemented to automate the deployment of VPN services by providers. This document reports the findings from the implementations, deriving the functionalities required to update the Service and Network YANG data models.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2"><span>[<a href="#RFC8969" class="cite xref">RFC8969</a>]</span> documents the automation framework. <span>[<a href="#RFC9315" class="cite xref">RFC9315</a>]</span> documents Intent-based networking from IRTF perspective, with specific problems which are addressable today after the first deployments have been done.<a href="#section-1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-2">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="service-and-network-yang-data-models-in-the-ietf">
+<section id="section-3">
+      <h2 id="name-service-and-network-yang-da">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-service-and-network-yang-da" class="section-name selfRef">Service and Network YANG Data Models in the IETF</a>
+      </h2>
+<p id="section-3-1">Several IETF Working Groups have developed YANG modules in order
+   to foster the provisioning and, more generally, the deployment of services. These modules focus on
+   how the network operator intents to manage a network through
+   protocols and devices to deliver a service. The intended configuration
+   at the device level is derived from network YANG data models.
+   The customer service YANG data models abstract the service for upper layers. The
+   intended network service configuration is derived from the the service model.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">A set of these models is listed here:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-3.1">
+          <p id="section-3-3.1.1"><span>[<a href="#RFC9182" class="cite xref">RFC9182</a>]</span> As a complement to the Layer 3 Virtual Private Network Service Model (L3SM),
+   which is used for communication between customers and service providers,
+   L3NM is a Network Model (L3NM) that can be used for the provisioning of
+   BGP based Layer 3 Virtual Private Network (L3VPN) services within a service provider network.<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-3.2">
+          <p id="section-3-3.2.1"><span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span> documents a data model that describes the deployment of
+   various types of L2VPN, including VPWS and BGP based L2VPN, such as EVPNs.<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+</section>
+</div>
+<div id="observations-and-new-requirements">
+<section id="section-4">
+      <h2 id="name-observations-and-new-requir">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-observations-and-new-requir" class="section-name selfRef">Observations and new requirements</a>
+      </h2>
+<div id="enhancements-to-lxsm-and-lxnm">
+<section id="section-4.1">
+        <h3 id="name-enhancements-to-lxsm-and-lx">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-enhancements-to-lxsm-and-lx" class="section-name selfRef">Enhancements to LxSM and LxNM</a>
+        </h3>
+<p id="section-4.1-1">Implementations of LxNM models in controllers required new functionalities which were not covered in <span>[<a href="#RFC9182" class="cite xref">RFC9182</a>]</span> and <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span> to deploy the missing functions in the Operator services. This section compiles the functions that were reported by those implementations.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<div id="l3nm-enhancements">
+<section id="section-4.1.1">
+          <h4 id="name-l3nm-enhancements">
+<a href="#section-4.1.1" class="section-number selfRef">4.1.1. </a><a href="#name-l3nm-enhancements" class="section-name selfRef">L3NM Enhancements</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.1">
+              <p id="section-4.1.1-1.1.1">BFD parametrization of static routes (Github issue #1):<a href="#section-4.1.1-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.1.2.1">
+                  <p id="section-4.1.1-1.1.2.1.1">The L3NM Yang data model allows to manage static routes in a VPN. That is, for a particular VPN service, new Pv4 and IPv6 static routes can be added, modified or deleted. The data model allows to specify whether BFD is desired in the static route. Whenever a controller derives the device configuration of the static route it will need to decide a particular BFD configuration, typically from a pre-defined template. Operators required, for different services, to customize the main BFD parameters to allow, for example, faster detection for critical services. The new requirement is the ability to specify BFD intended configuration in the IPv4 and IPv6 static routes, including a required-min-rx-interval and multiplier.<a href="#section-4.1.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.1-1.2">
+              <p id="section-4.1.1-1.2.1">Management of VLAN 0 in tagged interfaces (Github issue #2): LxNM Yang models have a range defined for cvlan between 1 and 4094. VLAN 0 should also be supported and is used in deployments.<a href="#section-4.1.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.1.1-1.3">
+              <p id="section-4.1.1-1.3.1">Missing BGP intended configuration blocks (in relation to Attachment Circuits) (Github issue #3).<a href="#section-4.1.1-1.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.3.2.1">
+                  <p id="section-4.1.1-1.3.2.1.1">There are a set of BGP configuration blocks required to manage BGP based services which are present now in the AC-Model but not in the L3NM:<a href="#section-4.1.1-1.3.2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.3.2.1.2.1">
+                      <p id="section-4.1.1-1.3.2.1.2.1.1">BGP Peer group creation<a href="#section-4.1.1-1.3.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    <li class="normal" id="section-4.1.1-1.3.2.1.2.2">
+                      <p id="section-4.1.1-1.3.2.1.2.2.1">BGP Redistribution rules<a href="#section-4.1.1-1.3.2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  </ul>
+</li>
+                <li class="normal" id="section-4.1.1-1.3.2.2">
+                  <p id="section-4.1.1-1.3.2.2.1">Missing pointer to ACL (also present in Github issue #3).<a href="#section-4.1.1-1.3.2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.3.2.2.2.1">
+                      <p id="section-4.1.1-1.3.2.2.2.1.1">ACL pointer to attach forwarding filter<a href="#section-4.1.1-1.3.2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                  </ul>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.1-1.4">
+              <p id="section-4.1.1-1.4.1">SRv6 support for L3VPN (Github issue #15): SRv6-based BGP services including L3VPN, whose procedures are defined in <span>[<a href="#RFC9252" class="cite xref">RFC9252</a>]</span><a href="#section-4.1.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.1.1-1.5">
+              <p id="section-4.1.1-1.5.1">Improving Multicast Support:<a href="#section-4.1.1-1.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.1-1.5.2.1">
+                  <p id="section-4.1.1-1.5.2.1.1">For L3VPN with multicast, one implementation has reported that Cisco MVPN augmentation were added to include various profiles ( ipmsi and spmsi ) . There is no YANG module from IETF as of today that supports full MVPN/SPMSI/IPMSI under L3NM directly. Standardized profiles are required to be added.<a href="#section-4.1.1-1.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.1-1.6">
+              <p id="section-4.1.1-1.6.1">Extend guidance of how the network models can be used to/and operationalize Inter-AS VPN options (A, B, and C as defined in <span>[<a href="#RFC4364" class="cite xref">RFC4364</a>]</span>) using the L3NM framework (Github issue #25).<a href="#section-4.1.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="l2nm-enhancements">
+<section id="section-4.1.2">
+          <h4 id="name-l2nm-enhancements">
+<a href="#section-4.1.2" class="section-number selfRef">4.1.2. </a><a href="#name-l2nm-enhancements" class="section-name selfRef">L2NM Enhancements</a>
+          </h4>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.1">
+              <p id="section-4.1.2-1.1.1">EVPN remote and local eth-tag (GitHub issue #6)<a href="#section-4.1.2-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.1.2.1">
+                  <p id="section-4.1.2-1.1.2.1.1">The current L2NM does not provide a way to express distinct local and remote eth-tag values per AC under the BGP-EVPN configuration.<a href="#section-4.1.2-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.2">
+              <p id="section-4.1.2-1.2.1">Explicit assignment of an RD at node level (GitHub issue #7)<a href="#section-4.1.2-1.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.2.2.1">
+                  <p id="section-4.1.2-1.2.2.1.1">In the current model, a Route Distinguisher (RD) must always be assigned via a profile at the
+service level. It is useful to be able to set an explicit RD directly at the node level,
+overriding the value of the profile. This allows a common profile to be used across all
+services for use cases where only the RD changes per node.<a href="#section-4.1.2-1.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.3">
+              <p id="section-4.1.2-1.3.1">Support for Flexible Cross-Connect (FXC) services (<span>[<a href="#RFC9744" class="cite xref">RFC9744</a>]</span>) (GitHub issue #8)<a href="#section-4.1.2-1.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.3.2.1">
+                  <p id="section-4.1.2-1.3.2.1.1">The L2NM should be enhanced with the support of EVPN Virtual Private Wire Service
+ (VPWS) service type specifically for multiplexing multiple attachment
+ circuits across different Ethernet Segments (ESs) and physical
+ interfaces into a single EVPN-VPWS service tunnel and still providing
+ Single-Active and All-Active multi-homing.<a href="#section-4.1.2-1.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.4">
+              <p id="section-4.1.2-1.4.1">Explanatory text for EVPN multihoming using LAG (GitHub issue #9)<a href="#section-4.1.2-1.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.4.2.1">
+                  <p id="section-4.1.2-1.4.2.1.1">The L2NM allows a lag-interface-id to be configured per VPN network access, but does not
+currently document how this identifier is used to associate the LAG members across PEs that
+belong to the same multihoming group.<a href="#section-4.1.2-1.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.5">
+              <p id="section-4.1.2-1.5.1">Support for VLAN lists and VLAN ranges (GitHub issue #10)<a href="#section-4.1.2-1.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.5.2.1">
+                  <p id="section-4.1.2-1.5.2.1.1">When defining a Layer 2 service, multiple VLANs are sometimes mapped into a single service.
+The L2NM encapsulation stanza should support this. Examples include:<a href="#section-4.1.2-1.5.2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.5.2.1.2.1">
+                      <p id="section-4.1.2-1.5.2.1.2.1.1">Single-tagged scenarios:
+<code>vlan-id-list [ 200 210-219 222 234 240-249 ]</code><a href="#section-4.1.2-1.5.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    <li class="normal" id="section-4.1.2-1.5.2.1.2.2">
+                      <p id="section-4.1.2-1.5.2.1.2.2.1">Dual-tagged scenarios with an S-VLAN and a list of C-VLANs:
+<code>vlan-tags outer 430 inner-list [ 200 210-219 222 234 240-249 ]</code><a href="#section-4.1.2-1.5.2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  </ul>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.6">
+              <p id="section-4.1.2-1.6.1">SRv6 support for L2VPN (GitHub issue #15)<a href="#section-4.1.2-1.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.6.2.1">
+                  <p id="section-4.1.2-1.6.2.1.1">Segment Routing over IPv6 (SRv6) extends BGP-based L2VPN services with IPv6-native data plane
+semantics, as defined in<span>[<a href="#RFC9252" class="cite xref">RFC9252</a>]</span>. Operators deploying SRv6-based L2VPN services require the
+L2NM to express SRv6-specific configuration that is not currently supported by <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>.
+Two specific gaps have been identified:<a href="#section-4.1.2-1.6.2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.6.2.1.2.1">
+                      <p id="section-4.1.2-1.6.2.1.2.1.1">SRv6 locator preferences.
+When multiple SRv6 locators are available on a PE, operators need a way to
+indicate which locator (or ordered list of locators) should be used for a given L2VPN service. This
+allows traffic from different services to be steered onto distinct locators -- for example, to
+differentiate by topology, slice, or administrative domain.<a href="#section-4.1.2-1.6.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                    <li class="normal" id="section-4.1.2-1.6.2.1.2.2">
+                      <p id="section-4.1.2-1.6.2.1.2.2.1">Address-family-based SRv6 selection.
+SRv6 behavior may need to be configured independently per address family(e.g., for services that
+carry both IPv4 and IPv6 payloads). The model should allow the SRv6 configuration to be expressed
+per address family rather than as a single service-wide setting.<a href="#section-4.1.2-1.6.2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  </ul>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.7">
+              <p id="section-4.1.2-1.7.1">Performance monitoring<a href="#section-4.1.2-1.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.7.2.1">
+                  <p id="section-4.1.2-1.7.2.1.1">ITU-T Y.1731 defines performance monitoring for Ethernet-based networks. L2NM <span>[<a href="#RFC9291" class="cite xref">RFC9291</a>]</span>
+does not natively include OAM specifics, and standardized support is required.<a href="#section-4.1.2-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.1.2-1.8">
+              <p id="section-4.1.2-1.8.1">EVI identifier to differentiate from VPN-ID (GitHub issue #24)<a href="#section-4.1.2-1.8.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1.2-1.8.2.1">
+                  <p id="section-4.1.2-1.8.2.1.1">Each EVI maps to a specific EVPN service (e.g., a Layer 2 VPN bridging a particular VLAN
+across the EVPN fabric). An explicit EVI identifier should be added to the model to
+distinguish it from the VPN-ID.<a href="#section-4.1.2-1.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="new-functionalities-required-to-fully-support-connectivity-services">
+<section id="section-4.2">
+        <h3 id="name-new-functionalities-require">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-new-functionalities-require" class="section-name selfRef">New Functionalities Required to Fully Support Connectivity Services</a>
+        </h3>
+<p id="section-4.2-1">The realization of advanced connectivity services requires, in addition to the configurations
+expressed in the LxNM models, the following capabilities:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.1">
+            <p id="section-4.2-2.1.1">Definition of Access Control Lists and Prefix Sets:<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.1.2.1">
+                <p id="section-4.2-2.1.2.1.1">Connectivity services often include mechanisms to filter forwarded packets. The LxNM models
+allow a service to reference a <code>forwarding-profile-identifier</code>, which refers to the policies
+that apply to the forwarding of packets conveyed within a VPN. Such policies may consist, for
+example, of applying Access Control Lists (ACLs). However, there is currently no ACL network
+service model -- although a device-level ACL model exists -- that allows ACLs and prefix sets
+to be manipulated when creating the service.<a href="#section-4.2-2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.2-2.1.2.2">
+                <p id="section-4.2-2.1.2.2.1">ACLs and prefix sets can be reused across services. Therefore, they need to be managed at the
+network level, independently of the specific service using them.<a href="#section-4.2-2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-4.2-2.2">
+            <p id="section-4.2-2.2.1">Definition of routing policies, including community sets and AS-path sets:<a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.2.2.1">
+                <p id="section-4.2-2.2.2.1.1">Advanced connectivity services require the definition of complex routing policies. The LxNM
+models allow the operator to indicate which policy (or policies) should be applied, but do
+not include the definition of those policies. A set of device-level models exists that could
+be used as a basis for a corresponding network-level model.<a href="#section-4.2-2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-4.2-2.3">
+            <p id="section-4.2-2.3.1">Pre- and post-deployment checks:<a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.3.2.1">
+                <p id="section-4.2-2.3.2.1.1">Mechanisms to perform validation checks before and after deploying a service in the network.
+For example, e.g., reachability, capacity, or configuration consistency.<a href="#section-4.2-2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-4.2-2.4">
+            <p id="section-4.2-2.4.1">Interface preparation:<a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-2.4.2.1">
+                <p id="section-4.2-2.4.2.1.1">Mechanisms to prepare an interface prior to the application of the full service configuration
+profile. For exampleÑ enabling the interface, setting MTU, or default VLAN configuration.<a href="#section-4.2-2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+</section>
+</div>
+<div id="status-of-the-intended-network-service">
+<section id="section-4.3">
+        <h3 id="name-status-of-the-intended-netw">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-status-of-the-intended-netw" class="section-name selfRef">Status of the Intended Network Service</a>
+        </h3>
+<p id="section-4.3-1">Status of the Intended Network Service<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">The Network Service YANG models represent the <em>intent</em> for the realization of a service. After an
+instance of a network service YANG intent has been created, a controller derives the necessary
+device-level configurations and applies them to the relevant devices. However, implementations
+have reported a set of open issues related to the status of the intended service. These issues are
+not addressed today and are left to implementation choices.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-3.1">
+            <p id="section-4.3-3.1.1">Is the service running on the network? (GitHub issue #5)<a href="#section-4.3-3.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-3.1.2.1">
+                <p id="section-4.3-3.1.2.1.1">How can the northbound system be assured, with full certainty, that a configuration has been
+successfully installed on the network device?<a href="#section-4.3-3.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.1.2.2">
+                <p id="section-4.3-3.1.2.2.1">What mechanisms or feedback loops exist to confirm successful configuration deployment beyond
+a simple acknowledgement?<a href="#section-4.3-3.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.1.2.3">
+                <p id="section-4.3-3.1.2.3.1">How can the model represent and handle transient errors or partial configuration
+applications?<a href="#section-4.3-3.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.1.2.4">
+                <p id="section-4.3-3.1.2.4.1">Are there specific operational attributes that can be used to reflect the real-time status of
+the configuration?<a href="#section-4.3-3.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.1.2.5">
+                <p id="section-4.3-3.1.2.5.1">Does the network element provide any operational state parameters or notifications that
+indicate whether the configuration is active, pending, or has failed?<a href="#section-4.3-3.1.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.1.2.6">
+                <p id="section-4.3-3.1.2.6.1">If a configuration is manually removed via CLI at the network device, is there a mechanism to
+reflect this change northbound?<a href="#section-4.3-3.1.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-4.3-3.2">
+            <p id="section-4.3-3.2.1">Operational status clarification (GitHub issue #4)<a href="#section-4.3-3.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3-3.2.2.1">
+                <p id="section-4.3-3.2.2.1.1">The interrelationships between the operational status of VPN services, VPN nodes, and VPN
+network access points represent another significant operational gap.<a href="#section-4.3-3.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.2.2.2">
+                <p id="section-4.3-3.2.2.2.1">The status of a VPN service may depend on the status of the underlying VPN nodes and the
+network access provided to the VPN.<a href="#section-4.3-3.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.2.2.3">
+                <p id="section-4.3-3.2.2.3.1">To address this gap, the L3NM should establish clear dependencies and correlations between
+the various operational statuses.<a href="#section-4.3-3.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.2.2.4">
+                <p id="section-4.3-3.2.2.4.1">This could involve defining specific criteria for determining the overall status of a VPN
+service based on the status of its constituent VPN nodes and network access components.<a href="#section-4.3-3.2.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-4.3-3.2.2.5">
+                <p id="section-4.3-3.2.2.5.1">In addition, real-time monitoring and correlation of status information can provide insights
+into the health and performance of VPN services.<a href="#section-4.3-3.2.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+</section>
+</div>
+<div id="summary">
+<section id="section-4.4">
+        <h3 id="name-summary">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-summary" class="section-name selfRef">Summary</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-4.4-1.1">
+            <p id="section-4.4-1.1.1">L3NM and L2NM need to be updated to cover new technologies (such as SRv6), incomplete support (such as multicast) and enhancements.<a href="#section-4.4-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.4-1.2">
+            <p id="section-4.4-1.2.1">New network YANG data models (such as ACLs and routing policies)<a href="#section-4.4-1.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-5">
+      <h2 id="name-security-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-5-1">TODO Security<a href="#section-5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-6">
+      <h2 id="name-iana-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-7.1">
+        <h3 id="name-normative-references">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9182">[RFC9182]</dt>
+        <dd>
+<span class="refAuthor">Barguil, S.</span>, <span class="refAuthor">Gonzalez de Dios, O., Ed.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Munoz, L.</span>, and <span class="refAuthor">A. Aguado</span>, <span class="refTitle">"A YANG Network Data Model for Layer 3 VPNs"</span>, <span class="seriesInfo">RFC 9182</span>, <span class="seriesInfo">DOI 10.17487/RFC9182</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9182">https://www.rfc-editor.org/rfc/rfc9182</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9291">[RFC9291]</dt>
+      <dd>
+<span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Gonzalez de Dios, O., Ed.</span>, <span class="refAuthor">Barguil, S.</span>, and <span class="refAuthor">L. Munoz</span>, <span class="refTitle">"A YANG Network Data Model for Layer 2 VPNs"</span>, <span class="seriesInfo">RFC 9291</span>, <span class="seriesInfo">DOI 10.17487/RFC9291</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9291">https://www.rfc-editor.org/rfc/rfc9291</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-7.2">
+        <h3 id="name-informative-references">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC4364">[RFC4364]</dt>
+        <dd>
+<span class="refAuthor">Rosen, E.</span> and <span class="refAuthor">Y. Rekhter</span>, <span class="refTitle">"BGP/MPLS IP Virtual Private Networks (VPNs)"</span>, <span class="seriesInfo">RFC 4364</span>, <span class="seriesInfo">DOI 10.17487/RFC4364</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4364">https://www.rfc-editor.org/rfc/rfc4364</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8199">[RFC8199]</dt>
+        <dd>
+<span class="refAuthor">Bogdanovic, D.</span>, <span class="refAuthor">Claise, B.</span>, and <span class="refAuthor">C. Moberg</span>, <span class="refTitle">"YANG Module Classification"</span>, <span class="seriesInfo">RFC 8199</span>, <span class="seriesInfo">DOI 10.17487/RFC8199</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8199">https://www.rfc-editor.org/rfc/rfc8199</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8309">[RFC8309]</dt>
+        <dd>
+<span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Liu, W.</span>, and <span class="refAuthor">A. Farrel</span>, <span class="refTitle">"Service Models Explained"</span>, <span class="seriesInfo">RFC 8309</span>, <span class="seriesInfo">DOI 10.17487/RFC8309</span>, <time datetime="2018-01" class="refDate">January 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8309">https://www.rfc-editor.org/rfc/rfc8309</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8969">[RFC8969]</dt>
+        <dd>
+<span class="refAuthor">Wu, Q., Ed.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Xie, C.</span>, and <span class="refAuthor">L. Geng</span>, <span class="refTitle">"A Framework for Automating Service and Network Management with YANG"</span>, <span class="seriesInfo">RFC 8969</span>, <span class="seriesInfo">DOI 10.17487/RFC8969</span>, <time datetime="2021-01" class="refDate">January 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8969">https://www.rfc-editor.org/rfc/rfc8969</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9252">[RFC9252]</dt>
+        <dd>
+<span class="refAuthor">Dawra, G., Ed.</span>, <span class="refAuthor">Talaulikar, K., Ed.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">Decraene, B.</span>, <span class="refAuthor">Zhuang, S.</span>, and <span class="refAuthor">J. Rabadan</span>, <span class="refTitle">"BGP Overlay Services Based on Segment Routing over IPv6 (SRv6)"</span>, <span class="seriesInfo">RFC 9252</span>, <span class="seriesInfo">DOI 10.17487/RFC9252</span>, <time datetime="2022-07" class="refDate">July 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9252">https://www.rfc-editor.org/rfc/rfc9252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9315">[RFC9315]</dt>
+        <dd>
+<span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Ciavaglia, L.</span>, <span class="refAuthor">Granville, L. Z.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"Intent-Based Networking - Concepts and Definitions"</span>, <span class="seriesInfo">RFC 9315</span>, <span class="seriesInfo">DOI 10.17487/RFC9315</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9315">https://www.rfc-editor.org/rfc/rfc9315</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9744">[RFC9744]</dt>
+      <dd>
+<span class="refAuthor">Sajassi, A., Ed.</span>, <span class="refAuthor">Brissette, P.</span>, <span class="refAuthor">Uttaro, J.</span>, <span class="refAuthor">Drake, J.</span>, <span class="refAuthor">Boutros, S.</span>, and <span class="refAuthor">J. Rabadan</span>, <span class="refTitle">"EVPN Virtual Private Wire Service (VPWS) Flexible Cross-Connect (FXC) Service"</span>, <span class="seriesInfo">RFC 9744</span>, <span class="seriesInfo">DOI 10.17487/RFC9744</span>, <time datetime="2025-03" class="refDate">March 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9744">https://www.rfc-editor.org/rfc/rfc9744</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-A">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-A-1">This documents is based on the issues compiled in Github lxnm repository. The authors would like to acknowledge the issues raised by Julian Lucek, Xiao Min, Daniele Ceccarelli and Sujay Murthy.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-B">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Oscar Gonzalez de Dios</span></div>
+<div dir="auto" class="left"><span class="org">Telefonica</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:oscar.gonzalezdedios@telefonica.com" class="email">oscar.gonzalezdedios@telefonica.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Samier Barguil</span></div>
+<div dir="auto" class="left"><span class="org">Nokia</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:samier.barguil_giraldo@nokia.com" class="email">samier.barguil_giraldo@nokia.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
