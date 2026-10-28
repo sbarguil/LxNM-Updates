@@ -566,7 +566,7 @@ module ietf-l3vpn-ntw {
 
      leaf required-min-rx-interval {
        type uint32;
-         units "miliseconds";
+         units "milliseconds";
          default "1000";
          description
            "The minimum interval between received BFD 
